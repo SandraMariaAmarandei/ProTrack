@@ -1,0 +1,2 @@
+F:\Master\Dizertatie\Work\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\ProTrack.Diseases.exe.config
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\ProTrack.Diseases.exe.config
