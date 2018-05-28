@@ -7,3 +7,4 @@ F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\obj\Debug
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\obj\Debug\ProTrack.Diseases.pdb
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\ProTrack.NLP.dll
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\ProTrack.NLP.pdb
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\StemmersNet.dll

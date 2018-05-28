@@ -28,7 +28,7 @@ namespace ProTrack.NLP.Tokenization
                 {
                     file.Result = file.Result + " " + words[j];
                 }
-                splitFile.Add(file);
+                splitFile.Add (file);
             }
             return splitFile;
         }
