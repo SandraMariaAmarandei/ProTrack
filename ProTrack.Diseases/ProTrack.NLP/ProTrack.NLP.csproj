@@ -44,6 +44,7 @@
     <Compile Include="Tokenization\FileEntity.cs" />
     <Compile Include="Tokenization\Read.cs" />
     <Compile Include="Tokenization\Relation.cs" />
+    <Compile Include="Tokenization\RelationEntity.cs" />
     <Compile Include="Tokenization\Split.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

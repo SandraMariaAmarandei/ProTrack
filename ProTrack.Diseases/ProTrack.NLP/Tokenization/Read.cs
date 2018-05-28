@@ -1,24 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ProTrack.NLP.Tokenization
 {
-    public class Read
+    public static class Read
     {
-        private readonly string[] _pathFolder = Directory.GetFiles(@"F:\Master\Dizertatie\Work\RESULTS\dev", "1.txt");
-       
-        public void ReadFromFile()
+        private static readonly string[] _pathFolder = Directory.GetFiles(@"F:\Master\Dizertatie\Work\RESULTS\dev", "1.txt");
+
+        public static List<string> ReadFromFile()
         {
+            var read = new List<string>();
             foreach (var txtName in _pathFolder)
             {
-                var read = File.ReadAllText(txtName);
-                if (read.Contains(FileEntity.Entity.Background  ))
-                {
-                    File.Copy(txtName, _destinationFolder + Path.GetFileName(txtName), true);
-                    Console.WriteLine("***#####" + txtName + "#####***");
-                    Console.WriteLine(read);
-                }
+                var text = File.ReadAllText(txtName);
+                read.Add(text);
             }
+            return read;
         }
     }
 }

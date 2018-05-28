@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ProTrack.NLP.Tokenization;
 
 namespace ProTrack.Diseases
 {
@@ -10,6 +7,8 @@ namespace ProTrack.Diseases
     {
         static void Main(string[] args)
         {
+            var split = new Split();
+            Console.WriteLine(split.SplitFile());
         }
     }
 }
