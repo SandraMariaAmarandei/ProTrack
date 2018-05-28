@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProTrack.Diseases", "ProTrack.Diseases\ProTrack.Diseases.csproj", "{81580502-020E-49B1-8A14-9F71441540EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProTrack.NLP", "ProTrack.NLP\ProTrack.NLP.csproj", "{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{81580502-020E-49B1-8A14-9F71441540EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81580502-020E-49B1-8A14-9F71441540EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81580502-020E-49B1-8A14-9F71441540EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
