@@ -18,7 +18,6 @@ namespace ProTrack.AnalyzeFiles
             var gramsList = GetGramsStem(OneGram);
             var contextContent = GetContext();
             var matchedContent = new List<List<string>>();
-            var positions = new List<List<int>>();
 
             foreach (var gram in gramsList)
             {
@@ -26,16 +25,34 @@ namespace ProTrack.AnalyzeFiles
                 if (matched.Count != 0)
                 {
                     matchedContent.Add(matched);
-                    foreach (var word in matched)
-                    {
-                    var matchedPosition = FindAllIndex(contextContent, word);
-                        positions.Add(matchedPosition);
-                    }
+                    //foreach (var word in matched)
+                    //{
+                    //var matchedPosition = FindAllIndex(contextContent, word);
+                    //    positions.Add(matchedPosition);
+                    //}
+                    var caca = GetOccurency(matched);
                 }
             }
             return matchedContent;
         }
 
+        private Dictionary<int, string> GetOccurency(List<string> matched)
+        {
+            var contextContent = GetContext();
+            var dictionary = new Dictionary<int, string>();
+            for (int i=0; i < contextContent.Count; i++)
+            {
+                for (int j=0; j<matched.Count;j++)
+                {
+                    if (contextContent[i] == matched[j])
+                    {
+                       dictionary.Add(i, matched[j]);
+                       break;
+                    }
+                }
+            }
+            return dictionary;
+        }
 
         public List<int> FindAllIndex<T>( List<T> container, string match)
         {
