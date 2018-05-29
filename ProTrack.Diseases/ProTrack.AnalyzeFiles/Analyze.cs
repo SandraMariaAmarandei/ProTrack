@@ -1,4 +1,5 @@
-﻿using ProTrack.NLP.Tokenization;
+﻿using System;
+using ProTrack.NLP.Tokenization;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace ProTrack.AnalyzeFiles
             var gramsList = GetGramsStem(OneGram);
             var contextContent = GetContext();
             var matchedContent = new List<List<string>>();
-            var positions = new List<int>();
+            var positions = new List<List<int>>();
 
             foreach (var gram in gramsList)
             {
@@ -25,11 +26,27 @@ namespace ProTrack.AnalyzeFiles
                 if (matched.Count != 0)
                 {
                     matchedContent.Add(matched);
-                    var matchedPosition = contextContent.IndexOf(matched.FirstOrDefault());
-                    positions.Add(matchedPosition);
+                    foreach (var word in matched)
+                    {
+                    var matchedPosition = FindAllIndex(contextContent, word);
+                        positions.Add(matchedPosition);
+                    }
                 }
             }
             return matchedContent;
+        }
+
+
+        public List<int> FindAllIndex<T>( List<T> container, string match)
+        {
+            var items = container.FindAll(m => m.Equals(match));
+            List<int> indexes = new List<int>();
+            foreach (var item in items)
+            {
+                indexes.Add(container.IndexOf(item));
+            }
+
+            return indexes;
         }
 
         private List<RelationEntity> GetFileEntities()
