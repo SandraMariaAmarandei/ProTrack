@@ -1,0 +1,8 @@
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\bin\Debug\ProTrack.AnalyzeFiles.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\bin\Debug\ProTrack.AnalyzeFiles.pdb
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\bin\Debug\ProTrack.NLP.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\bin\Debug\StemmersNet.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\bin\Debug\ProTrack.NLP.pdb
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\obj\Debug\ProTrack.AnalyzeFiles.csprojResolveAssemblyReference.cache
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\obj\Debug\ProTrack.AnalyzeFiles.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.AnalyzeFiles\obj\Debug\ProTrack.AnalyzeFiles.pdb

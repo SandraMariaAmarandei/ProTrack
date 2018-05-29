@@ -6,7 +6,7 @@ namespace ProTrack.NLP.Tokenization
 {
     public static class Read
     {
-        private static readonly string[] PathFolder = Directory.GetFiles(@"F:\Master\Dizertatie\Work\RESULTS\dev1", "*.txt");
+        private static readonly string[] PathFolder = Directory.GetFiles(@"F:\Master\Dizertatie\Work\RESULTS\dev", "1.txt");
 
         public static List<string> ReadFromFile()
         {

@@ -10,6 +10,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProTrack.Diseases", "ProTra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProTrack.NLP", "ProTrack.NLP\ProTrack.NLP.csproj", "{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProTrack.AnalyzeFiles", "ProTrack.AnalyzeFiles\ProTrack.AnalyzeFiles.csproj", "{A0CDE5F6-89B5-4171-9029-A66A56788A77}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE} = {BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +29,10 @@ Global
 		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0CDE5F6-89B5-4171-9029-A66A56788A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0CDE5F6-89B5-4171-9029-A66A56788A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0CDE5F6-89B5-4171-9029-A66A56788A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0CDE5F6-89B5-4171-9029-A66A56788A77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

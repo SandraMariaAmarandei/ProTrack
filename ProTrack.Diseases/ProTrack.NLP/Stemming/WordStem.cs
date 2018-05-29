@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Iveonik.Stemmers;
 using ProTrack.NLP.NGrams;
 
 namespace ProTrack.NLP.Stemming
 {
-    public class WordStem
+    public static class WordStem
     {
-        public List<string> FindGramStem(string gramList)
+        public static List<string> FindGramStem(string gramList)
         {
             var grams = ReadGrams.ReadNGram(gramList);
             var gramStemList = new List<string>();

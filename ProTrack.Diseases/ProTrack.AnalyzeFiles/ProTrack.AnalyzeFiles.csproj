@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{81580502-020E-49B1-8A14-9F71441540EE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{A0CDE5F6-89B5-4171-9029-A66A56788A77}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProTrack.Diseases</RootNamespace>
-    <AssemblyName>ProTrack.Diseases</AssemblyName>
+    <RootNamespace>ProTrack.AnalyzeFiles</RootNamespace>
+    <AssemblyName>ProTrack.AnalyzeFiles</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,17 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Analyze.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ProTrack.AnalyzeFiles\ProTrack.AnalyzeFiles.csproj">
-      <Project>{A0CDE5F6-89B5-4171-9029-A66A56788A77}</Project>
-      <Name>ProTrack.AnalyzeFiles</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProTrack.NLP\ProTrack.NLP.csproj">
       <Project>{BBBE5373-FAAE-4C74-BDF0-5FEAF36B97CE}</Project>
       <Name>ProTrack.NLP</Name>
