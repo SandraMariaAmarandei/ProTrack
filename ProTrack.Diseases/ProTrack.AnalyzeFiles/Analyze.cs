@@ -12,28 +12,35 @@ namespace ProTrack.AnalyzeFiles
         private static readonly string TwoGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\2-gram.txt");
         private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
 
-        public List<RelationEntity> GetFileEntities()
+        public List<List<string>> AnalyzeContext()
+        {
+            var gramsList = GetGramsStem(OneGram);
+            var contextContent = GetContext();
+            var matchedContent = new List<List<string>>();
+            var positions = new List<int>();
+
+            foreach (var gram in gramsList)
+            {
+                var matched = contextContent.Where(x => x.Contains(gram)).ToList();
+                if (matched.Count != 0)
+                {
+                    matchedContent.Add(matched);
+                    var matchedPosition = contextContent.IndexOf(matched.FirstOrDefault());
+                    positions.Add(matchedPosition);
+                }
+            }
+            return matchedContent;
+        }
+
+        private List<RelationEntity> GetFileEntities()
         {
             var split = new Split();
             return split.SplitFile();
         }
 
-        public List<string> GetGramsStem(string gram)
+        private List<string> GetGramsStem(string gram)
         {
             return WordStem.FindGramStem(gram);
-        }
-
-        public List<int> AnalyzeContext()
-        {
-            var gramsList = GetGramsStem(OneGram);
-            var contextContent = GetContext();
-            var contextMatches = new List<int>();
-
-            foreach (var gram in gramsList)
-            {
-                contextMatches.Add(contextContent.BinarySearch(gram));
-            }
-            return contextMatches;
         }
 
         private List<string> GetContext()
