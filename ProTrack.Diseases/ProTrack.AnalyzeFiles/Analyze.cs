@@ -13,24 +13,25 @@ namespace ProTrack.AnalyzeFiles
         private static readonly string TwoGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\2-gram.txt");
         private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
 
-        public List<List<string>> AnalyzeContext()
+        public List<string> GetCause()
+        {
+
+            return null;
+        }
+
+        private List<Dictionary<int, string>> AnalyzeContextForOneGram()
         {
             var gramsList = GetGramsStem(OneGram);
-            var contextContent = GetContext();
-            var matchedContent = new List<List<string>>();
+            var contextContent = GetCauseList();
+            var matchedContent = new List<Dictionary<int, string>>();
 
             foreach (var gram in gramsList)
             {
                 var matched = contextContent.Where(x => x.Contains(gram)).ToList();
                 if (matched.Count != 0)
                 {
-                    matchedContent.Add(matched);
-                    //foreach (var word in matched)
-                    //{
-                    //var matchedPosition = FindAllIndex(contextContent, word);
-                    //    positions.Add(matchedPosition);
-                    //}
-                    var caca = GetOccurency(matched);
+                    var occurency = GetOccurency(matched);
+                    matchedContent.Add(occurency);
                 }
             }
             return matchedContent;
@@ -38,7 +39,7 @@ namespace ProTrack.AnalyzeFiles
 
         private Dictionary<int, string> GetOccurency(List<string> matched)
         {
-            var contextContent = GetContext();
+            var contextContent = GetCauseList();
             var dictionary = new Dictionary<int, string>();
             for (int i=0; i < contextContent.Count; i++)
             {
@@ -54,18 +55,6 @@ namespace ProTrack.AnalyzeFiles
             return dictionary;
         }
 
-        public List<int> FindAllIndex<T>( List<T> container, string match)
-        {
-            var items = container.FindAll(m => m.Equals(match));
-            List<int> indexes = new List<int>();
-            foreach (var item in items)
-            {
-                indexes.Add(container.IndexOf(item));
-            }
-
-            return indexes;
-        }
-
         private List<RelationEntity> GetFileEntities()
         {
             var split = new Split();
@@ -77,7 +66,7 @@ namespace ProTrack.AnalyzeFiles
             return WordStem.FindGramStem(gram);
         }
 
-        private List<string> GetContext()
+        private List<string> GetCauseList()
         {
             var fileEntitities = GetFileEntities();
             var words = new List<string>();
