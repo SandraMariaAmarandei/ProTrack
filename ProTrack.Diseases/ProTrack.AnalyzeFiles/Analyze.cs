@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ProTrack.NLP.NGrams;
 using ProTrack.NLP.Stemming;
 
 namespace ProTrack.AnalyzeFiles
@@ -11,7 +12,6 @@ namespace ProTrack.AnalyzeFiles
     public class Analyze
     {
         private static readonly string OneGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\1-gram.txt");
-        private static readonly string TwoGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\2-gram.txt");
         private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
 
         public List<List<string>> AnalyzeContextForOneGram()
@@ -33,6 +33,23 @@ namespace ProTrack.AnalyzeFiles
             return matchedContent;
         }
 
+        public List<Dictionary<int, string>> AnalyzeTreatments()
+        {
+            var treatmentList = GetTreatments();
+            var contextContent = GetCauseList();
+            var list = new List<Dictionary<int, string>>();
+
+            foreach (var treatment in treatmentList)
+            {
+                var matched = contextContent.Where(x => x.Contains(treatment)).ToList();
+                if (matched.Count != 0)
+                {
+                    var occurency = GetOccurency(matched);
+                    list.Add(occurency);
+                }
+            }
+            return list;
+        }
 
         private List<string> GetCause(Dictionary<int, string> matchedDictionary)
         {
@@ -95,11 +112,28 @@ namespace ProTrack.AnalyzeFiles
 
             foreach (var entitie in fileEntitities)
             {
-                var fileContent = Regex.Replace(entitie.Cause, @"[^\da-zA-Z-]", " ");
+                var fileContent = Regex.Replace(entitie.Cause.ToLower(), @"[^\da-zA-Z-]", " ");
                 fileContent= fileContent.Trim();
                 words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
             }
             return words;
+        }
+
+        private string GetResultList()
+        {
+            var fileEntitities = GetFileEntities();
+            var fileContent=String.Empty;
+            foreach (var entitie in fileEntitities)
+            {
+                 fileContent = Regex.Replace(entitie.Result, @"[^\da-zA-Z-]", " ");
+                fileContent = fileContent.Trim();
+            }
+            return fileContent;
+        }
+
+        private List<string> GetTreatments()
+        {
+            return ReadGrams.ReadNGram(Treatments);
         }
     }
 }
