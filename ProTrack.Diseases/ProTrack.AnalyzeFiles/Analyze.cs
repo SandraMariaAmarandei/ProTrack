@@ -3,6 +3,7 @@ using ProTrack.NLP.Tokenization;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using ProTrack.NLP.Stemming;
 
 namespace ProTrack.AnalyzeFiles
@@ -13,17 +14,11 @@ namespace ProTrack.AnalyzeFiles
         private static readonly string TwoGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\2-gram.txt");
         private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
 
-        public List<string> GetCause()
-        {
-
-            return null;
-        }
-
-        private List<Dictionary<int, string>> AnalyzeContextForOneGram()
+        public List<List<string>> AnalyzeContextForOneGram()
         {
             var gramsList = GetGramsStem(OneGram);
             var contextContent = GetCauseList();
-            var matchedContent = new List<Dictionary<int, string>>();
+            var matchedContent = new List<List<string>>();
 
             foreach (var gram in gramsList)
             {
@@ -31,24 +26,51 @@ namespace ProTrack.AnalyzeFiles
                 if (matched.Count != 0)
                 {
                     var occurency = GetOccurency(matched);
-                    matchedContent.Add(occurency);
+                    var cause = GetCause(occurency);
+                    matchedContent.Add(cause);
                 }
             }
             return matchedContent;
+        }
+
+
+        private List<string> GetCause(Dictionary<int, string> matchedDictionary)
+        {
+            var contextContent = GetCauseList();
+            var expressionsList = new List<string>();
+
+            foreach (var key in matchedDictionary.Keys)
+            {
+                var expressions = new List<string>();
+                if (key - 3 >= 0 && key + 3 <= contextContent.Count)
+                {
+                    for (int i = key - 3; i <= key + 3; i++)
+                    {
+                        expressions.Add(contextContent[i]);
+                    }
+                    var information = string.Join(" ", expressions);
+                    expressionsList.Add(information);
+                }
+                else
+                {
+                    expressionsList.Add(contextContent[key]);
+                }
+            }
+            return expressionsList;
         }
 
         private Dictionary<int, string> GetOccurency(List<string> matched)
         {
             var contextContent = GetCauseList();
             var dictionary = new Dictionary<int, string>();
-            for (int i=0; i < contextContent.Count; i++)
+            for (int i = 0; i < contextContent.Count; i++)
             {
-                for (int j=0; j<matched.Count;j++)
+                for (int j = 0; j < matched.Count; j++)
                 {
                     if (contextContent[i] == matched[j])
                     {
-                       dictionary.Add(i, matched[j]);
-                       break;
+                        dictionary.Add(i, matched[j]);
+                        break;
                     }
                 }
             }
@@ -73,7 +95,9 @@ namespace ProTrack.AnalyzeFiles
 
             foreach (var entitie in fileEntitities)
             {
-                words = entitie.Cause.Split(' ').ToList();
+                var fileContent = Regex.Replace(entitie.Cause, @"[^\da-zA-Z-]", " ");
+                fileContent= fileContent.Trim();
+                words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
             }
             return words;
         }

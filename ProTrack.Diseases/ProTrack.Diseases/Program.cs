@@ -23,7 +23,7 @@ namespace ProTrack.Diseases
            // wordStem.FindGramStem(TwoGram);
            // ReadGrams.ReadNGram(Treatments);
             var analyze = new Analyze();
-            Console.WriteLine(analyze.AnalyzeContext());
+            Console.WriteLine(analyze.AnalyzeContextForOneGram());
         }
     }
 }
