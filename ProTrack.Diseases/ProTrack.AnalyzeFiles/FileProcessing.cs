@@ -13,46 +13,45 @@ namespace ProTrack.AnalyzeFiles
     {
         private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
         
-        public List<string> GetCause(Dictionary<int, string> matchedDictionary)
+        public List<string> GetCause(Dictionary<int, string> matchedDictionary, List<string>content)
         {
-            var contextContent = GetCauseList();
             var expressionsList = new List<string>();
 
             foreach (var key in matchedDictionary.Keys)
             {
-                var expressions = new List<string>();
-                if (key - 3 >= 0 && key + 3 <= contextContent.Count)
-                {
-                    for (int i = key - 3; i <= key + 3; i++)
+                    var expressions = new List<string>();
+                    if (key - 3 >= 0 && key + 3 <= content.Count)
                     {
-                        expressions.Add(contextContent[i]);
+                        for (int i = key - 3; i <= key + 3; i++)
+                        {
+                            expressions.Add(content[i]);
+                        }
+                        var information = string.Join(" ", expressions);
+                        expressionsList.Add(information);
                     }
-                    var information = string.Join(" ", expressions);
-                    expressionsList.Add(information);
-                }
-                else
-                {
-                    expressionsList.Add(contextContent[key]);
-                }
+                    else
+                    {
+                        expressionsList.Add(content[key]);
+                    }
             }
             return expressionsList;
         }
 
-        public Dictionary<int, string> GetOccurency(List<string> matched)
+        public Dictionary<int, string> GetOccurency(List<string> matched, List<string> content)
         {
-            var contextContent = GetCauseList();
             var dictionary = new Dictionary<int, string>();
-            for (int i = 0; i < contextContent.Count; i++)
-            {
-                for (int j = 0; j < matched.Count; j++)
+
+                for (int i = 0; i < content.Count; i++)
                 {
-                    if (contextContent[i] == matched[j])
+                    for (int j = 0; j < matched.Count; j++)
                     {
-                        dictionary.Add(i, matched[j]);
-                        break;
+                        if (content[i] == matched[j])
+                        {
+                            dictionary.Add(i, matched[j]);
+                            break;
+                        }
                     }
                 }
-            }
             return dictionary;
         }
 
@@ -67,18 +66,19 @@ namespace ProTrack.AnalyzeFiles
             return WordStem.FindGramStem(gram);
         }
 
-        public List<string> GetCauseList()
+        public List<List<string>> GetCauseList()
         {
             var fileEntitities = GetFileEntities();
-            var words = new List<string>();
-
+            var fileWords = new List<List<string>>();
             foreach (var entitie in fileEntitities)
             {
+                var words = new List<string>();
                 var fileContent = Regex.Replace(entitie.Cause.ToLower(), @"[^\da-zA-Z-]", " ");
                 fileContent = fileContent.Trim();
                 words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+                fileWords.Add(words);
             }
-            return words;
+            return fileWords;
         }
 
         public string GetResult()

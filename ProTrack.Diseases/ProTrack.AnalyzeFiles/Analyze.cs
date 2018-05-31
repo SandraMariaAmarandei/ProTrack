@@ -12,41 +12,52 @@ namespace ProTrack.AnalyzeFiles
         private static readonly string Efficiency = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\efficiency.txt");
         private readonly FileProcessing _fileProcessing = new FileProcessing();
 
-        public List<List<string>> AnalyzeContext()
+        public List<List<List<string>>> AnalyzeContext()
         {
             var gramsList = _fileProcessing.GetGramsStem(OneGram);
             var causeContent = _fileProcessing.GetCauseList();
-            var matchedContent = new List<List<string>>();
+            var contextList = new List<List<List<string>>>();
 
-            foreach (var gram in gramsList)
+            foreach (var content in causeContent)
             {
-                var matched = causeContent.Where(x => x.Contains(gram)).ToList();
-                if (matched.Count != 0)
+                var matchedContent = new List<List<string>>();
+                foreach (var gram in gramsList)
                 {
-                    var occurency = _fileProcessing.GetOccurency(matched);
-                    var cause = _fileProcessing.GetCause(occurency);
-                    matchedContent.Add(cause);
+                    var matched = content.Where(x => x.Contains(gram)).ToList();
+                    if (matched.Count != 0)
+                    {
+                        var occurency = _fileProcessing.GetOccurency(matched, content);
+                        var cause = _fileProcessing.GetCause(occurency, content);
+                        matchedContent.Add(cause);
+                    }
                 }
+                contextList.Add(matchedContent);
             }
-            return matchedContent;
+
+            return contextList;
         }
 
-        public List<Dictionary<int, string>> AnalyzeTreatments()
+        public List<List<Dictionary<int, string>>> AnalyzeTreatments()
         {
             var treatmentList = _fileProcessing.GetTreatments();
             var causeContent = _fileProcessing.GetCauseList();
-            var list = new List<Dictionary<int, string>>();
-
-            foreach (var treatment in treatmentList)
+            var fileTreatment = new List<List<Dictionary<int, string>>>();
+            foreach (var content in causeContent)
             {
-                var matched = causeContent.Where(x => x.Contains(treatment)).ToList();
-                if (matched.Count != 0)
+                var list = new List<Dictionary<int, string>>();
+
+                foreach (var treatment in treatmentList)
                 {
-                    var occurency = _fileProcessing.GetOccurency(matched);
-                    list.Add(occurency);
+                    var matched = content.Where(x => x.Contains(treatment)).ToList();
+                    if (matched.Count != 0)
+                    {
+                        var occurency = _fileProcessing.GetOccurency(matched, content);
+                        list.Add(occurency);
+                    }
                 }
+                fileTreatment.Add(list);
             }
-            return list;
+            return fileTreatment;
         }
 
         public void AnalyzeEfficiency()
