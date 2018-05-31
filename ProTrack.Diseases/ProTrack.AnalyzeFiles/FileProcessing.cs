@@ -72,25 +72,26 @@ namespace ProTrack.AnalyzeFiles
             var fileWords = new List<List<string>>();
             foreach (var entitie in fileEntitities)
             {
-                var words = new List<string>();
                 var fileContent = Regex.Replace(entitie.Cause.ToLower(), @"[^\da-zA-Z-]", " ");
                 fileContent = fileContent.Trim();
-                words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+                var words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
                 fileWords.Add(words);
             }
             return fileWords;
         }
 
-        public string GetResult()
+        public List<List<string>> GetResult()
         {
             var fileEntitities = GetFileEntities();
-            var fileContent = String.Empty;
+            var fileResult = new List<List<string>>();
             foreach (var entitie in fileEntitities)
             {
-                fileContent = Regex.Replace(entitie.Result, @"[^\da-zA-Z-]", " ");
-                fileContent = fileContent.Trim();
+                var fileResultContent = Regex.Replace(entitie.Result, @"[^\da-zA-Z-]", " ");
+                fileResultContent = fileResultContent.Trim();
+                var words = fileResultContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+                fileResult.Add(words);
             }
-            return fileContent;
+            return fileResult;
         }
 
         public List<string> GetTreatments()

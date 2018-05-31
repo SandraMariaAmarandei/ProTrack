@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ProTrack.NLP.Tokenization;
 
 namespace ProTrack.AnalyzeFiles
 {
@@ -60,9 +59,28 @@ namespace ProTrack.AnalyzeFiles
             return fileTreatment;
         }
 
-        public void AnalyzeEfficiency()
+        public List<List<List<string>>> AnalyzeEfficiency()
         {
             var resulContent = _fileProcessing.GetResult();
+            var efficiencyList = _fileProcessing.GetGramsStem(Efficiency);
+            var resultsList = new List<List<List<string>>>();
+
+            foreach (var content in resulContent)
+            {
+                var matchedContent = new List<List<string>>();
+                foreach (var gram in efficiencyList)
+                {
+                    var matched = content.Where(x => x.Contains(gram)).ToList();
+                    if (matched.Count != 0)
+                    {
+                        var occurency = _fileProcessing.GetOccurency(matched, content);
+                        var cause = _fileProcessing.GetCause(occurency, content);
+                        matchedContent.Add(cause);
+                    }
+                }
+                resultsList.Add(matchedContent);
+            }
+            return resultsList;
 
         }
     }
