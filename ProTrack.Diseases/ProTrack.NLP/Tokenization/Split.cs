@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace ProTrack.NLP.Tokenization
 {
@@ -8,6 +6,9 @@ namespace ProTrack.NLP.Tokenization
     {
         private string results = FileEntity.Entity.Results.ToString().ToUpper();
         private string conclusions = FileEntity.Entity.Conclusions.ToString().ToUpper();
+        private string motivation = FileEntity.Entity.Methods.ToString().ToUpper();
+        private string objective = FileEntity.Entity.Objective.ToString().ToUpper();
+        private string background = FileEntity.Entity.Background.ToString().ToUpper();
 
         public List<RelationEntity> SplitFile()
         {
@@ -31,6 +32,13 @@ namespace ProTrack.NLP.Tokenization
                 splitFile.Add (file);
             }
             return splitFile;
+        }
+
+        public List<string> TakeMotivation()
+        {
+            var textFiles = Read.ReadFirstLine();
+       
+            return textFiles;
         }
     }
 }

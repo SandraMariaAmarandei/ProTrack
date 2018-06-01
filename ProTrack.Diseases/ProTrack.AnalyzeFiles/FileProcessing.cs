@@ -20,9 +20,9 @@ namespace ProTrack.AnalyzeFiles
             foreach (var key in matchedDictionary.Keys)
             {
                     var expressions = new List<string>();
-                    if (key - 3 >= 0 && key + 3 <= content.Count)
+                    if (key - 5 >= 0 && key + 3 <= content.Count)
                     {
-                        for (int i = key - 3; i <= key + 3; i++)
+                        for (int i = key - 5; i <= key + 5; i++)
                         {
                             expressions.Add(content[i]);
                         }
@@ -61,9 +61,30 @@ namespace ProTrack.AnalyzeFiles
             return split.SplitFile();
         }
 
+        public List<string> GetMotivation()
+        {
+            var split = new Split();
+            return split.TakeMotivation();
+        }
+
         public List<string> GetGramsStem(string gram)
         {
             return WordStem.FindGramStem(gram);
+        }
+
+        public List<List<string>> GetMotivationList()
+        {
+            var fileEntitities = GetMotivation();
+            var fileWords = new List<List<string>>();
+
+            foreach (var entitie in fileEntitities)
+            {
+                var fileContent = Regex.Replace(entitie.ToLower(), @"[^a-zA-Z]", " ");
+                fileContent = fileContent.Trim();
+                var words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+                fileWords.Add(words);
+            }
+            return fileWords;
         }
 
         public List<List<string>> GetCauseList()
@@ -84,11 +105,19 @@ namespace ProTrack.AnalyzeFiles
         {
             var fileEntitities = GetFileEntities();
             var fileResult = new List<List<string>>();
+            var garbageWords = new List<string>
+            {
+                "the", "and", "a", "an", "at", "mg", "n", "of", "to"
+            };
             foreach (var entitie in fileEntitities)
             {
-                var fileResultContent = Regex.Replace(entitie.Result, @"[^\da-zA-Z-]", " ");
+                var fileResultContent = Regex.Replace(entitie.Result.ToLower(), @"[^a-zA-Z]", " ");
                 fileResultContent = fileResultContent.Trim();
                 var words = fileResultContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+                foreach (var garbage in garbageWords)
+                {
+                    words = words.Where(s => !s.Equals(garbage)).ToList();
+                }
                 fileResult.Add(words);
             }
             return fileResult;

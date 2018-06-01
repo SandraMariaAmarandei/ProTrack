@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ProTrack.NLP.Tokenization
 {
@@ -16,6 +16,18 @@ namespace ProTrack.NLP.Tokenization
             {
                 var text = File.ReadAllText(txtName);
                 read.Add(text);
+            }
+            return read;
+        }
+
+        public static List<string> ReadFirstLine()
+        {
+            var read = new List<string>();
+            foreach (var txtName in PathFolder)
+            {
+                var text = File.ReadLines(txtName).Skip(1).Take(1).ToList();
+                var value = text.FirstOrDefault();
+                read.Add(value);
             }
             return read;
         }

@@ -11,39 +11,45 @@ namespace ProTrack.AnalyzeFiles
         private static readonly string Efficiency = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\efficiency.txt");
         private readonly FileProcessing _fileProcessing = new FileProcessing();
 
-        public List<List<List<string>>> AnalyzeContext()
+        public List<string> Context()
         {
+            var causeContent = _fileProcessing.GetMotivationList();
+            var causeList = new List<string>();
             var gramsList = _fileProcessing.GetGramsStem(OneGram);
-            var causeContent = _fileProcessing.GetCauseList();
-            var contextList = new List<List<List<string>>>();
 
             foreach (var content in causeContent)
             {
-                var matchedContent = new List<List<string>>();
-                foreach (var gram in gramsList)
+                if (content.Count <= 35)
                 {
-                    var matched = content.Where(x => x.Contains(gram)).ToList();
-                    if (matched.Count != 0)
-                    {
-                        var occurency = _fileProcessing.GetOccurency(matched, content);
-                        var cause = _fileProcessing.GetCause(occurency, content);
-                        matchedContent.Add(cause);
-                    }
+                    causeList.Add(string.Join(" ", content));
                 }
-                contextList.Add(matchedContent);
+                else
+                {
+                    var matchedContent = new List<string>();
+                    foreach (var gram in gramsList)
+                    {
+                        var matched = content.Where(x => x.Contains(gram)).ToList();
+                        if (matched.Count != 0)
+                        {
+                            var occurency = _fileProcessing.GetOccurency(matched, content);
+                            var causes = string.Join("\n",_fileProcessing.GetCause(occurency, content));
+                            matchedContent.Add(causes);
+                        }
+                    }
+                    causeList.Add(string.Join("\n\n", matchedContent));
+                }
             }
-
-            return contextList;
+            return causeList;
         }
 
-        public List<List<Dictionary<int, string>>> AnalyzeTreatments()
+        public List<string> AnalyzeTreatments()
         {
             var treatmentList = _fileProcessing.GetTreatments();
             var causeContent = _fileProcessing.GetCauseList();
-            var fileTreatment = new List<List<Dictionary<int, string>>>();
+            var fileTreatment = new List<string>();
             foreach (var content in causeContent)
             {
-                var list = new List<Dictionary<int, string>>();
+                var list = new List<string>();
 
                 foreach (var treatment in treatmentList)
                 {
@@ -51,37 +57,36 @@ namespace ProTrack.AnalyzeFiles
                     if (matched.Count != 0)
                     {
                         var occurency = _fileProcessing.GetOccurency(matched, content);
-                        list.Add(occurency);
+                        list.Add(string.Join("\n", occurency.Values.ToList()));
                     }
                 }
-                fileTreatment.Add(list);
+                fileTreatment.Add(string.Join("; ",list));
             }
             return fileTreatment;
         }
 
-        public List<List<List<string>>> AnalyzeEfficiency()
+        public List<string> AnalyzeEfficiency()
         {
             var resulContent = _fileProcessing.GetResult();
             var efficiencyList = _fileProcessing.GetGramsStem(Efficiency);
-            var resultsList = new List<List<List<string>>>();
+            var resultsList = new List<string>();
 
             foreach (var content in resulContent)
             {
-                var matchedContent = new List<List<string>>();
+                var matchedContent = new List<string>();
                 foreach (var gram in efficiencyList)
                 {
                     var matched = content.Where(x => x.Contains(gram)).ToList();
                     if (matched.Count != 0)
                     {
                         var occurency = _fileProcessing.GetOccurency(matched, content);
-                        var cause = _fileProcessing.GetCause(occurency, content);
+                        var cause = string.Join("\n", _fileProcessing.GetCause(occurency, content));
                         matchedContent.Add(cause);
                     }
                 }
-                resultsList.Add(matchedContent);
+                resultsList.Add(string.Join("\n\n", matchedContent));
             }
             return resultsList;
-
         }
     }
 }

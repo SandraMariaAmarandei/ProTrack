@@ -16,6 +16,7 @@ namespace ProTrack.Diseases
         static void Main(string[] args)
         {
             var split = new Split();
+            Console.WriteLine(split.TakeMotivation());
             //Console.WriteLine(split.SplitFile());
             //Console.WriteLine(ReadGrams.ReadNGram(OneGram));
             //Console.WriteLine(ReadGrams.ReadNGram(TwoGram));
@@ -23,7 +24,7 @@ namespace ProTrack.Diseases
            // wordStem.FindGramStem(TwoGram);
            // ReadGrams.ReadNGram(Treatments);
             var analyze = new Analyze();
-           // Console.WriteLine(analyze.AnalyzeContext());
+           // Console.WriteLine(analyze.Context());
            // Console.WriteLine(analyze.AnalyzeTreatments());
             Console.WriteLine(analyze.AnalyzeEfficiency());
         }
