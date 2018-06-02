@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,9 +21,9 @@ namespace ProTrack.AnalyzeFiles
             foreach (var key in matchedDictionary.Keys)
             {
                     var expressions = new List<string>();
-                    if (key - 5 >= 0 && key + 3 <= content.Count)
+                    if (key - 1 >= 0 && key < content.Count)
                     {
-                        for (int i = key - 5; i <= key + 5; i++)
+                        for (int i = key - 1 ; i <= key; i++)
                         {
                             expressions.Add(content[i]);
                         }
@@ -35,6 +36,30 @@ namespace ProTrack.AnalyzeFiles
                     }
             }
             return expressionsList;
+        }
+
+        public List<string> GetResultCause(Dictionary<int, string> matchedDictionary, List<string> content)
+        {
+            var expressionsList = new List<string>();
+
+            foreach (var key in matchedDictionary.Keys)
+            {
+                var expressions = new List<string>();
+                if (key - 2 >= 0 && key < content.Count)
+                {
+                    for (int i = key - 2; i <= key; i++)
+                    {
+                        expressions.Add(content[i]);
+                    }
+                    var information = string.Join(" ", expressions);
+                    expressionsList.Add(information);
+                }
+                else
+                {
+                    expressionsList.Add(content[key]);
+                }
+            }
+            return expressionsList.Distinct().ToList();
         }
 
         public Dictionary<int, string> GetOccurency(List<string> matched, List<string> content)
@@ -105,18 +130,19 @@ namespace ProTrack.AnalyzeFiles
         {
             var fileEntitities = GetFileEntities();
             var fileResult = new List<List<string>>();
-            var garbageWords = new List<string>
+            var garbages = new List<string>
             {
-                "the", "and", "a", "an", "at", "mg", "n", "of", "to"
+                "the", "and", "mg", "an", "a", "of", "cr", "mg", "day","odds", "ratio", "at",
+                "p", "n", "to", "in", "for", "vs", "with", "was", "but", "those"
             };
             foreach (var entitie in fileEntitities)
             {
                 var fileResultContent = Regex.Replace(entitie.Result.ToLower(), @"[^a-zA-Z]", " ");
                 fileResultContent = fileResultContent.Trim();
                 var words = fileResultContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
-                foreach (var garbage in garbageWords)
+                foreach (var grb in garbages)
                 {
-                    words = words.Where(s => !s.Equals(garbage)).ToList();
+                    words = words.Where(s => !s.Equals(grb)).ToList();
                 }
                 fileResult.Add(words);
             }

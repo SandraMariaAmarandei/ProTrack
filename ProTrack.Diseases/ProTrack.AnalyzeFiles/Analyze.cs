@@ -19,7 +19,7 @@ namespace ProTrack.AnalyzeFiles
 
             foreach (var content in causeContent)
             {
-                if (content.Count <= 35)
+                if (content.Count <= 30)
                 {
                     causeList.Add(string.Join(" ", content));
                 }
@@ -32,7 +32,7 @@ namespace ProTrack.AnalyzeFiles
                         if (matched.Count != 0)
                         {
                             var occurency = _fileProcessing.GetOccurency(matched, content);
-                            var causes = string.Join("\n",_fileProcessing.GetCause(occurency, content));
+                            var causes = string.Join("\n", _fileProcessing.GetCause(occurency, content));
                             matchedContent.Add(causes);
                         }
                     }
@@ -60,7 +60,7 @@ namespace ProTrack.AnalyzeFiles
                         list.Add(string.Join("\n", occurency.Values.ToList()));
                     }
                 }
-                fileTreatment.Add(string.Join("; ",list));
+                fileTreatment.Add(string.Join("; ", list));
             }
             return fileTreatment;
         }
@@ -80,7 +80,7 @@ namespace ProTrack.AnalyzeFiles
                     if (matched.Count != 0)
                     {
                         var occurency = _fileProcessing.GetOccurency(matched, content);
-                        var cause = string.Join("\n", _fileProcessing.GetCause(occurency, content));
+                        var cause = string.Join("\n", _fileProcessing.GetResultCause(occurency, content));
                         matchedContent.Add(cause);
                     }
                 }
