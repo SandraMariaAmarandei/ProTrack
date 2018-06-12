@@ -13,7 +13,9 @@ namespace ProTrack.AnalyzeFiles
     public class FileProcessing
     {
         private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
-        
+        private static readonly string DiseaseLevel = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\diseaseLevel.txt");
+
+
         public List<string> GetCause(Dictionary<int, string> matchedDictionary, List<string>content)
         {
             var expressionsList = new List<string>();
@@ -92,6 +94,12 @@ namespace ProTrack.AnalyzeFiles
             return split.TakeMotivation();
         }
 
+        public List<string> GetAllText()
+        {
+            var split = new Split();
+            return split.TakeAllDocument();
+        }
+
         public List<string> GetGramsStem(string gram)
         {
             return WordStem.FindGramStem(gram);
@@ -152,6 +160,11 @@ namespace ProTrack.AnalyzeFiles
         public List<string> GetTreatments()
         {
             return ReadGrams.ReadNGram(Treatments);
+        }
+
+        public List<string> GetDiseaseLevels()
+        {
+            return ReadGrams.ReadNGram(DiseaseLevel);
         }
     }
 }

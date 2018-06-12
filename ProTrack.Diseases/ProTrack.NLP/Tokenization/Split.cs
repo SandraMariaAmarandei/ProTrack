@@ -40,5 +40,10 @@ namespace ProTrack.NLP.Tokenization
        
             return textFiles;
         }
+
+        public List<string> TakeAllDocument()
+        {
+            return Read.ReadFromFile();
+        }
     }
 }

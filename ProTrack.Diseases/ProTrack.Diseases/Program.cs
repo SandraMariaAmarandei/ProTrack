@@ -24,10 +24,11 @@ namespace ProTrack.Diseases
            // wordStem.FindGramStem(TwoGram);
            // ReadGrams.ReadNGram(Treatments);
             var analyze = new Analyze();
-            //Console.WriteLine(analyze.Context());
+            //Console.WriteLine(analyze.AnalyzeContext());
             //Console.WriteLine(analyze.AnalyzeTreatments());
-            Console.WriteLine(analyze.AnalyzeEfficiency());
+            // Console.WriteLine(analyze.AnalyzeEfficiency());
             //Console.WriteLine(analyze.EfficiencyEntitie());
+            Console.WriteLine(analyze.AnalyzeDiseaseLevel());
         }
     }
 }

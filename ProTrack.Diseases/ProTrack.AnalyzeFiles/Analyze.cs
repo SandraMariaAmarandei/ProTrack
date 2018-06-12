@@ -11,7 +11,7 @@ namespace ProTrack.AnalyzeFiles
         private static readonly string Efficiency = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\efficiency.txt");
         private readonly FileProcessing _fileProcessing = new FileProcessing();
 
-        public List<string> Context()
+        public List<string> AnalyzeContext()
         {
             var causeContent = _fileProcessing.GetMotivationList();
             var causeList = new List<string>();
@@ -87,6 +87,30 @@ namespace ProTrack.AnalyzeFiles
                 resultsList.Add(string.Join("\n\n", matchedContent));
             }
             return resultsList;
+        }
+
+        public List<string> AnalyzeDiseaseLevel()
+        {
+            var texts = _fileProcessing.GetAllText();
+            var diseaseGrams = _fileProcessing.GetDiseaseLevels();
+            var list = new List<string>();
+            var level = new List<string>();
+            foreach (var text in texts)
+            {
+                foreach (var gram in diseaseGrams)
+                {
+                    var match = text.Contains(gram) ? gram : "undefined";
+                    list.Add(match);
+                }
+                var unique = list.Distinct().ToList();
+                if (unique.Count > 1)
+                {
+                    unique.Remove("undefined");
+                }
+                level.Add(string.Join(", ", unique));
+                list = new List<string>();
+            }
+            return level;
         }
     }
 }
