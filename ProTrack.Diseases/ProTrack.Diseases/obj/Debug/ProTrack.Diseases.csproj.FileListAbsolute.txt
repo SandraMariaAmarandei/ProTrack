@@ -10,3 +10,11 @@ F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\StemmersNet.dll
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\ProTrack.AnalyzeFiles.dll
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\ProTrack.AnalyzeFiles.pdb
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.Common.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.License.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.Pdf.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.XLS.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Microsoft.mshtml.dll
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.Common.xml
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.Pdf.xml
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.Diseases\bin\Debug\Spire.XLS.xml

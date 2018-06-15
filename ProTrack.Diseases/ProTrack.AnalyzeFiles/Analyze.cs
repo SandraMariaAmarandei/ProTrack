@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -32,11 +33,11 @@ namespace ProTrack.AnalyzeFiles
                         if (matched.Count != 0)
                         {
                             var occurency = _fileProcessing.GetOccurency(matched, content);
-                            var causes = string.Join("\n", _fileProcessing.GetCause(occurency, content));
+                            var causes = string.Join("**", _fileProcessing.GetCause(occurency, content));
                             matchedContent.Add(causes);
                         }
                     }
-                    causeList.Add(string.Join("\n\n", matchedContent));
+                    causeList.Add(string.Join("##", matchedContent));
                 }
             }
             return causeList;
@@ -47,6 +48,7 @@ namespace ProTrack.AnalyzeFiles
             var treatmentList = _fileProcessing.GetTreatments();
             var causeContent = _fileProcessing.GetCauseList();
             var fileTreatment = new List<string>();
+            int comma = 44;
             foreach (var content in causeContent)
             {
                 var list = new List<string>();
@@ -57,10 +59,10 @@ namespace ProTrack.AnalyzeFiles
                     if (matched.Count != 0)
                     {
                         var occurency = _fileProcessing.GetOccurency(matched, content);
-                        list.Add(string.Join("\n", occurency.Values.ToList()));
+                        list.Add(string.Join(" ", occurency.Values.Distinct().ToList()));
                     }
                 }
-                fileTreatment.Add(string.Join("; ", list));
+                fileTreatment.Add(String.Join("##", list));
             }
             return fileTreatment;
         }
@@ -80,11 +82,11 @@ namespace ProTrack.AnalyzeFiles
                     if (matched.Count != 0)
                     {
                         var occurency = _fileProcessing.GetOccurency(matched, content);
-                        var cause = string.Join("\n", _fileProcessing.GetResultCause(occurency, content));
+                        var cause = string.Join("**", _fileProcessing.GetResultCause(occurency, content));
                         matchedContent.Add(cause);
                     }
                 }
-                resultsList.Add(string.Join("\n\n", matchedContent));
+                resultsList.Add(string.Join("##", matchedContent));
             }
             return resultsList;
         }
@@ -107,7 +109,7 @@ namespace ProTrack.AnalyzeFiles
                 {
                     unique.Remove("undefined");
                 }
-                level.Add(string.Join(", ", unique));
+                level.Add(string.Join(" ", unique));
                 list = new List<string>();
             }
             return level;

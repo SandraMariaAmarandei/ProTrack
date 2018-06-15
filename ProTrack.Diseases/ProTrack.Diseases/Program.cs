@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ProTrack.AnalyzeFiles;
+using ProTrack.Diseases.Results;
 using ProTrack.NLP.NGrams;
 using ProTrack.NLP.Stemming;
 using ProTrack.NLP.Tokenization;
@@ -9,26 +10,23 @@ namespace ProTrack.Diseases
 {
     class Program
     {
-        //private static readonly string OneGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\1-gram.txt");
-        //private static readonly string TwoGram = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\2-gram.txt");
-        //private static readonly string Treatments = File.ReadAllText(@"F:\Master\Dizertatie\Work\N-grams\treatment.txt");
-
         static void Main(string[] args)
         {
-            var split = new Split();
-            Console.WriteLine(split.TakeMotivation());
-            //Console.WriteLine(split.SplitFile());
-            //Console.WriteLine(ReadGrams.ReadNGram(OneGram));
-            //Console.WriteLine(ReadGrams.ReadNGram(TwoGram));
-           // var wordStem = new WordStem();
-           // wordStem.FindGramStem(TwoGram);
-           // ReadGrams.ReadNGram(Treatments);
             var analyze = new Analyze();
             //Console.WriteLine(analyze.AnalyzeContext());
             //Console.WriteLine(analyze.AnalyzeTreatments());
             // Console.WriteLine(analyze.AnalyzeEfficiency());
             //Console.WriteLine(analyze.EfficiencyEntitie());
-            Console.WriteLine(analyze.AnalyzeDiseaseLevel());
+            //Console.WriteLine(analyze.AnalyzeDiseaseLevel());
+            var write = new WriteCsv();
+           
+
+            var context = analyze.AnalyzeContext();
+            var treatments = analyze.AnalyzeTreatments();
+            var efficiency = analyze.AnalyzeEfficiency();
+            var diseaseLvel = analyze.AnalyzeDiseaseLevel();
+
+            write.CreateCSV(context, treatments,efficiency, diseaseLvel);
         }
     }
 }
