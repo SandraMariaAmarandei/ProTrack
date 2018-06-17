@@ -48,7 +48,6 @@ namespace ProTrack.AnalyzeFiles
             var treatmentList = _fileProcessing.GetTreatments();
             var causeContent = _fileProcessing.GetCauseList();
             var fileTreatment = new List<string>();
-            int comma = 44;
             foreach (var content in causeContent)
             {
                 var list = new List<string>();
@@ -61,6 +60,10 @@ namespace ProTrack.AnalyzeFiles
                         var occurency = _fileProcessing.GetOccurency(matched, content);
                         list.Add(string.Join(" ", occurency.Values.Distinct().ToList()));
                     }
+                }
+                if (!list.Any())
+                {
+                    list.Add("study");
                 }
                 fileTreatment.Add(String.Join("##", list));
             }
@@ -85,6 +88,10 @@ namespace ProTrack.AnalyzeFiles
                         var cause = string.Join("**", _fileProcessing.GetResultCause(occurency, content));
                         matchedContent.Add(cause);
                     }
+                }
+                if (!matchedContent.Any())
+                {
+                    matchedContent.Add("inconclusive");
                 }
                 resultsList.Add(string.Join("##", matchedContent));
             }

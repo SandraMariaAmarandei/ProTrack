@@ -10,7 +10,7 @@ namespace ProTrack.Diseases.Results
 {
     public class WriteCsv
     {
-        public void CreateCSV(List<string> context, List<string> treatments, List<string> efficiency, List<string> diseaseLevel)
+        public void CreateCSV(List<string> context, List<string> treatments, List<string> efficiency, List<string> diseaseLevel, List<string> titles)
         {
             var filePath = Directory.GetFiles(@"F:\Master\Dizertatie\Work\RESULTS", "devdata.xlsx");
 
@@ -33,6 +33,10 @@ namespace ProTrack.Diseases.Results
             for (int i = 2; i < diseaseLevel.Count + 2; i++)
             {
                 sheet.Range["D" + i].Text = diseaseLevel.ElementAt(i - 2);
+            }
+            for (int i = 2; i < titles.Count + 2; i++)
+            {
+                sheet.Range["E" + i].Text = titles.ElementAt(i - 2);
             }
             FileStream file_stream = new FileStream("To_stream.xls", FileMode.Create);
             wbToStream.SaveToStream(file_stream);

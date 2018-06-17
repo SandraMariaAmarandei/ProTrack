@@ -25,8 +25,9 @@ namespace ProTrack.Diseases
             var treatments = analyze.AnalyzeTreatments();
             var efficiency = analyze.AnalyzeEfficiency();
             var diseaseLvel = analyze.AnalyzeDiseaseLevel();
+            var titles = Read.GetFilesTitle();
 
-            write.CreateCSV(context, treatments,efficiency, diseaseLvel);
+            write.CreateCSV(context, treatments,efficiency, diseaseLvel, titles);
         }
     }
 }

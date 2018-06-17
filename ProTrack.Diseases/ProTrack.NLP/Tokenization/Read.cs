@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -30,6 +31,19 @@ namespace ProTrack.NLP.Tokenization
                 read.Add(value);
             }
             return read;
+        }
+
+        public static List<string> GetFilesTitle()
+        {
+            var files = PathFolder;
+            var titleList = new List<string>();
+            var title = String.Empty;
+            foreach (var name in files)
+            {
+               title = Path.GetFileName(name);
+               titleList.Add(title);
+            }
+            return titleList;
         }
     }
 }
