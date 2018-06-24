@@ -26,8 +26,11 @@ namespace ProTrack.Diseases
             var efficiency = analyze.AnalyzeEfficiency();
             var diseaseLvel = analyze.AnalyzeDiseaseLevel();
             var titles = Read.GetFilesTitle();
-
-            write.CreateCSV(context, treatments,efficiency, diseaseLvel, titles);
+            var reprocessingDiseaseLevelList = analyze.ReprocessingDiseaseLevel(diseaseLvel);
+            var reprocessingEfficiencyLevelList = analyze.ReprocessingEfficiancy();
+            var reprocessingContextList = analyze.ReprocessingContext();
+            //write.CreateCSV(context, treatments,efficiency, diseaseLvel, titles);
+            write.CreateCSV(reprocessingContextList, treatments, reprocessingEfficiencyLevelList, reprocessingDiseaseLevelList, titles);
         }
     }
 }
