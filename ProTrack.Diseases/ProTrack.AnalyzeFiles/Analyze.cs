@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Iveonik.Stemmers;
+using Microsoft.SqlServer.Server;
 using ProTrack.NLP.NGrams;
 
 namespace ProTrack.AnalyzeFiles
@@ -77,7 +78,7 @@ namespace ProTrack.AnalyzeFiles
                 {
                     list.Add("study");
                 }
-                fileTreatment.Add(String.Join("##", list));
+                fileTreatment.Add(string.Join(" & ", list));
             }
             return fileTreatment;
         }
@@ -146,11 +147,11 @@ namespace ProTrack.AnalyzeFiles
                 else if (list[i].StartsWith("complex") || list[i].StartsWith("simple") || list[i].StartsWith("focal") ||
                          list[i].StartsWith("symptomatic"))
                 {
-                    list[i] = "focal epilepsy";
+                    list[i] = "focal";
                 }
                 else
                 {
-                    list[i] = "generalized epilepsy";
+                    list[i] = "generalized";
                 }
             }
             return list;
@@ -210,7 +211,7 @@ namespace ProTrack.AnalyzeFiles
                     }
                     if (eff > neut && eff > inf)
                     {
-                        categoryList.Add("efficiency");
+                        categoryList.Add("efficient");
                     }
                     if((inf==eff || inf==neut )&& inf!=0)
                     {
@@ -218,7 +219,7 @@ namespace ProTrack.AnalyzeFiles
                     }
                     if (neut == eff && neut != 0)
                     {
-                        categoryList.Add("efficiency");
+                        categoryList.Add("efficient");
                     }
                     if (inf == eff && eff == neut && neut != 0)
                     {
@@ -245,118 +246,156 @@ namespace ProTrack.AnalyzeFiles
 
             List<string> categoryList = new List<string>();
             int med, seiz, chr, nr, dt, srg, psych;
-
+            int maxim;
+            int minim;
+            string category = String.Empty;
+            string categoryMinim=String.Empty;
             for (int i = 0; i < causeContent.Count; i++)
             {
                 med = seiz = chr = nr = dt = srg = psych = 0;
-
+                maxim = 0;
+                minim = 1000;
+                
                 foreach (string item in causeContent[i])
                 {
+                    
+
                     var wordStem = FindGramStem(item);
                     if (medication.Contains(wordStem))
                     {
                         med++;
+                        if (maxim < med)
+                        {
+                            maxim = med;
+                            category = "medication";
+                        }
+                        if (minim > med)
+                        {
+                            minim = med;
+                            categoryMinim = "medication";
+                        }
                         continue;
                     }
                     if (seizures.Contains(wordStem))
                     {
                         seiz++;
+                        if (maxim < seiz)
+                        {
+                            maxim = seiz;
+                            category = "seizures";
+                        }
+                        if (minim > seiz)
+                        {
+                            minim = seiz;
+                            categoryMinim = "seizures";
+                        }
                         continue;
                     }
                     if (chronic.Contains(wordStem))
                     {
                         chr++;
+                        if (maxim < chr)
+                        {
+                            maxim = chr;
+                            category = "chronic disorder";
+                        }
+                        if (minim > chr)
+                        {
+                            minim = chr;
+                            categoryMinim = "chronic disorder";
+                        }
                         continue;
                     }
                     if (neuro.Contains(wordStem))
                     {
                         nr++;
+                        if (maxim < nr)
+                        {
+                            maxim = nr;
+                            category = "neurological";
+                        }
+                        if (minim > nr)
+                        {
+                            minim = nr;
+                            categoryMinim = "neurological";
+                        }
                         continue;
                     }
                     if (diet.Contains(wordStem))
                     {
                         dt++;
+                        if (maxim < dt)
+                        {
+                            maxim = dt;
+                            category = "diet";
+                        }
+                        if (minim > dt)
+                        {
+                            minim = dt;
+                            categoryMinim = "diet";
+                        }
                         continue;
                     }
                     if (surgery.Contains(wordStem))
                     {
                         srg++;
+                        if (maxim < srg)
+                        {
+                            maxim = srg;
+                            category = "surgery";
+                        }
+                        if (minim > srg)
+                        {
+                            minim = srg;
+                            categoryMinim = "surgery";
+                        }
                         continue;
                     }
                     if (psycho.Contains(wordStem))
                     {
                         psych++;
+                        if (maxim < psych)
+                        {
+                            maxim = psych;
+                            category = "psychiatric";
+                        }
+                        if (minim > psych)
+                        {
+                            minim = psych;
+                            categoryMinim = "psychiatric";
+                        }
                         continue;
                     }
                 }
-                if (med == seiz && seiz == chr && chr == nr && nr == dt && dt == srg && srg == psych && psych == 0)
+                if (categoryMinim.Equals("diet"))
                 {
-                    categoryList.Add("study");
+                    categoryList.Add("diet");
+                }
+                else if (categoryMinim.Equals("neurological"))
+                {
+                    categoryList.Add("neurological");
                 }
                 else
                 {
-                    if (med > seiz && med > chr && med > nr && med > dt && med > srg && med > psych)
-                    {
-                        categoryList.Add("medication");
-                    }
-                    if (seiz > med  && seiz > chr && seiz > nr && seiz > dt && seiz > srg && seiz > psych)
-                    {
-                        categoryList.Add("seizures");
-                    }
-                    if (chr > seiz && chr > med && chr > nr && chr > dt && chr > srg && chr > psych)
-                    {
-                        categoryList.Add("chronic disorder");
-                    }
-                    if (nr > seiz && nr > chr && nr > med && nr > dt && nr > srg && nr > psych)
-                    {
-                        categoryList.Add("neurological");
-                    }
-                    if (dt > seiz && dt > chr && dt > nr && dt > med && dt > srg && dt > psych)
-                    {
-                        categoryList.Add("diet");
-                    }
-                    if (srg > seiz && srg > chr && srg > nr && srg > dt && srg > med && srg > psych)
-                    {
-                        categoryList.Add("surgery");
-                    }
-                    if (psych > seiz && psych > chr && psych > nr && psych > dt && psych > srg && psych > med)
-                    {
-                        categoryList.Add("psychiatric");
-                    }
-                    //if ((nr == srg || med == srg || seiz == srg || chr == srg || psych == srg) && srg != 0)
-                    //{
-                    //    categoryList.Add("surgery");
-                    //}
-                    //if ((psych == seiz || med == psych) && psych != 0)
-                    //{
-                    //    categoryList.Add("psychiatric");
-                    //}
-                    //if ( med == nr && seiz != 0)
-                    //{
-                    //    categoryList.Add("neurological");
-                    //}
-                    if (med == seiz && med != 0)
-                    {
-                        categoryList.Add("medication");
-                    }
-                    //if (med == nr && med != 0)
-                    //{
-                    //    categoryList.Add("neurological");
-                    //}
-                    //if (med == dt && med != 0)
-                    //{
-                    //    categoryList.Add("diet");
-                    //}
 
+                    if (med == seiz && seiz == chr && chr == nr && nr == dt && dt == srg && srg == psych && psych == 0)
+                    {
+                        categoryList.Add("study");
+                    }
+                    else
+                    {
+                        categoryList.Add(category);
+                    }
                 }
+
                 Console.WriteLine(med);
-                Console.WriteLine( seiz);
+                Console.WriteLine(seiz);
                 Console.WriteLine(chr);
                 Console.WriteLine(nr);
                 Console.WriteLine(dt);
                 Console.WriteLine(srg);
-                Console.WriteLine( psych);
-                Console.WriteLine( "_______________________________________________________");
+                Console.WriteLine(psych);
+                Console.WriteLine("_______________________________________________________");
             }
 
             return categoryList;

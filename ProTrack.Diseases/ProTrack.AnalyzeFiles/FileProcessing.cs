@@ -126,7 +126,7 @@ namespace ProTrack.AnalyzeFiles
             var fileWords = new List<List<string>>();
             foreach (var entitie in fileEntitities)
             {
-                var fileContent = Regex.Replace(entitie.Cause.ToLower(), @"[^\da-zA-Z-]", " ");
+                var fileContent = Regex.Replace(entitie.Cause.ToLower(), @"[^\da-zA-Z]", " ");
                 fileContent = fileContent.Trim();
                 var words = fileContent.Split(' ').Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
                 fileWords.Add(words);
