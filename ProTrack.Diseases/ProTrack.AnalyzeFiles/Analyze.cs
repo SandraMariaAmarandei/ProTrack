@@ -76,7 +76,7 @@ namespace ProTrack.AnalyzeFiles
                 }
                 if (!list.Any())
                 {
-                    list.Add("study");
+                    list.Add("experiment");
                 }
                 fileTreatment.Add(string.Join(" & ", list));
             }
@@ -388,14 +388,14 @@ namespace ProTrack.AnalyzeFiles
                     }
                 }
 
-                Console.WriteLine(med);
-                Console.WriteLine(seiz);
-                Console.WriteLine(chr);
-                Console.WriteLine(nr);
-                Console.WriteLine(dt);
-                Console.WriteLine(srg);
-                Console.WriteLine(psych);
-                Console.WriteLine("_______________________________________________________");
+                //Console.WriteLine(med);
+                //Console.WriteLine(seiz);
+                //Console.WriteLine(chr);
+                //Console.WriteLine(nr);
+                //Console.WriteLine(dt);
+                //Console.WriteLine(srg);
+                //Console.WriteLine(psych);
+                //Console.WriteLine("_______________________________________________________");
             }
 
             return categoryList;

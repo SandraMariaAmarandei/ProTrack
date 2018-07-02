@@ -1,6 +1,6 @@
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\bin\Debug\ProTrack.NLP.dll
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\bin\Debug\ProTrack.NLP.pdb
+F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\bin\Debug\StemmersNet.dll
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\obj\Debug\ProTrack.NLP.csprojResolveAssemblyReference.cache
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\obj\Debug\ProTrack.NLP.dll
 F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\obj\Debug\ProTrack.NLP.pdb
-F:\Master\Dizertatie\Work\ProTrack\ProTrack.Diseases\ProTrack.NLP\bin\Debug\StemmersNet.dll
